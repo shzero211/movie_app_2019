@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Movie from './Movie'
+import "./App.css"
 
 import PropTypes from "prop-types"
 //state를 이용하기위해서 class component를 사용합니다
@@ -22,18 +23,30 @@ class App extends React.Component {
     //this.state를 생략하기위한 const
     const { isLoading, movies } = this.state;
     //object를 풀어줄 때 map함수를 사용하고, 또, jsx에서는 props를 통해서 값을 전달합니다. key는 표현되지 않지만 필수props입니다.
-    return <div>{isLoading ? "Loading..." : movies.map( movie => {
-      console.log(movie);
-      return <Movie 
-      key={movie.id}
-      id={movie.id} 
-      year={movie.year} 
-      title={movie.title} 
-      summary={movie.summary} 
-      poster={movie.medium_cover_image} 
-      />
-    })}
-    </div>;
+    return( 
+    <section class="container">
+      {isLoading ? (
+      <div class="loader">
+        <span class="loader_text">Loading....</span>
+      </div> 
+      ): (
+        <div class="movies">
+        {
+          movies.map(movie=>(
+            <Movie
+            key={movie.id}
+            id={movie.id}
+            year={movie.year}
+            title={movie.title}
+            summary={movie.summary}
+            poster={movie.medium_cover_image}
+            />
+          ) )}
+
+        </div>
+    )}
+    </section>
+    );
   }
 }
 export default App;
